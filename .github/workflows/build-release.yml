@@ -50,7 +50,7 @@ on:
   #   tags:        
   #     - '*'
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths-ignore:
       - create-release.yml
       - update-release.yml
