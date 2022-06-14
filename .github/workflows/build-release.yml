@@ -76,10 +76,15 @@ jobs:
         file: 'app/Dockerfile'
         push: true
         tags: ${{ env.IMAGE_NAME }}:${{ env.GITHUB_REF_NAME }}
-    - name: Changelog
-      uses: scottbrenner/generate-changelog-action@master
-      id: Changelog
-      with:
-        package-dir: './app/package.json'
-        from-tag: v0.4
-        to-tag: v0.6
+    # - name: Changelog
+    #   uses: scottbrenner/generate-changelog-action@master
+    #   id: Changelog
+    #   with:
+    #     package-dir: './app/package.json'
+    #     from-tag: v0.4
+    #     to-tag: v0.6
+    - name: "Build Changelog"
+      id: build_changelog
+      uses: mikepenz/release-changelog-builder-action@{latest-release}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
