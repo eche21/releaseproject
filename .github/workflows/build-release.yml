@@ -80,5 +80,6 @@ jobs:
       uses: scottbrenner/generate-changelog-action@master
       id: Changelog
       with:
+        package-dir: './app/package.json'
         from-tag: v0.1
         to-tag: HEAD
