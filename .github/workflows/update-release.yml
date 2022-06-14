@@ -1,10 +1,12 @@
 name: Release
 
 on:
-  release:
-    types: [created]
-    paths-ignore:
-      - create-release.yml   
+  push:
+    branches: [ none ]
+  # release:
+  #   types: [created]
+  #   paths-ignore:
+  #     - create-release.yml   
 
 jobs:
   build:
