@@ -56,7 +56,7 @@ on:
       - update-release.yml
 
 env:
-  IMAGE_NAME: eche21/mydemoapp
+  IMAGE_NAME: eche/eche
 
 jobs:
   Build-Linux:
@@ -71,7 +71,7 @@ jobs:
     - name: Build and push app to Dockerhub
       uses: docker/build-push-action@v2.10.0
       with:
-        context: './releaseproject'
-        file: './app/Dockerfile'
+        context: './app'
+        file: 'app/Dockerfile'
         push: true
         tags: ${{ env.IMAGE_NAME }}:${{ env.GITHUB_REF_NAME }}
