@@ -55,8 +55,8 @@ on:
       - create-release.yml
       - update-release.yml
 
-env:
-  IMAGE_NAME: eche/eche
+# env:
+#   IMAGE_NAME: eche/eche
 
 jobs:
   Build-Linux:
@@ -74,4 +74,4 @@ jobs:
         context: './app'
         file: 'app/Dockerfile'
         push: true
-        tags: ${{ env.IMAGE_NAME }}:${{ env.GITHUB_REF_NAME }}
+        tags: eche21/app:latest #${{ env.IMAGE_NAME }}:${{ env.GITHUB_REF_NAME }}
