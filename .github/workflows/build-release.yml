@@ -57,6 +57,7 @@ on:
 
 env:
   IMAGE_NAME: eche21/app
+#  GITHUB_REF_NAME: ${{ github.ref_name }}
 
 jobs:
   Build-Linux:
@@ -74,4 +75,4 @@ jobs:
         context: './app'
         file: 'app/Dockerfile'
         push: true
-        tags: ${{ env.IMAGE_NAME }}:latest #${{ env.GITHUB_REF_NAME }}
+        tags: ${{ env.IMAGE_NAME }}:GITHUB_REF_NAME
