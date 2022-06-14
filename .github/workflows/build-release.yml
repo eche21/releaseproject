@@ -76,3 +76,8 @@ jobs:
         file: 'app/Dockerfile'
         push: true
         tags: ${{ env.IMAGE_NAME }}:${{ env.GITHUB_REF_NAME }}
+    - name: Changelog
+      uses: scottbrenner/generate-changelog-action@master
+      id: Changelog
+      with:
+        package-dir: './app/package.json'
