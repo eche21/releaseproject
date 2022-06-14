@@ -46,11 +46,11 @@
 name: Build and Release
 
 on:
-  # push:
-  #   tags:        
-  #     - '*'
   push:
-    branches: [ main ]
+    tags:        
+       - '*'
+#  push:
+#    branches: [ main ]
     paths-ignore:
       - create-release.yml
       - update-release.yml
@@ -75,4 +75,4 @@ jobs:
         context: './app'
         file: 'app/Dockerfile'
         push: true
-        tags: ${{ env.IMAGE_NAME }}:GITHUB_REF_NAME
+        tags: ${{ env.IMAGE_NAME }}:${{ GITHUB_REF_NAME }}
