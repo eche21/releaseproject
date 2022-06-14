@@ -1,0 +1,77 @@
+# ###########################################################################################
+# # THIS DEMO SUCCESSFULLY BUILDS AND DEPLOYS THE DOCKER CONTAINER TO AKS
+# #THE APP IS TAKEN FROM docs.docker.com/get-started/02_our_app
+# #THE ZIP FOLDER IS IN MY DOWNLOADS C:\Users\ericn\Downloads\getting-started-master.zip
+# #########################################################################################
+# #
+# #This workflow is triggered on a push to github branch che
+# name: demo_build_and_deploy_aks_v2
+
+# on:
+#   push:
+#     branches:
+#       - che      
+
+# jobs:
+
+#   build-deploy-kub:
+#     runs-on: ubuntu-latest 
+#     env:
+#       #Environment variables for Docker image
+#       DOCKER_REPOSITORY: eche21 # name of Docker Hub ID
+#       IMAGE_NAME: demoappv2 # name of image
+#       IMAGE_TAG: ${{ github.sha }} # $GITHUB_SHA the  commit ID
+#       #
+#       #variables for AKS cluster and namespace
+#       CLUSTER_NAME: RegScale
+#       CLUSTER_RESOURCE_GROUP: Corporate
+#       NAMESPACE: demo-eche
+    
+#     steps:
+# #    
+# #This step checks out the application source code
+# #
+#     - name: Git Checkout
+#       uses: actions/checkout@v2
+# #      
+# #This step builds the docker image using docker build. The image is tagged.
+# # We can also use a step predefined in github market place.
+# # But we use the command line. The docker cli and the docker daemon are already installed inside  the runner. 
+# #This gives more flexibility and more control.
+# #
+#     - name: Build Docker Image
+#       run:
+#         docker build ./app/ --file ./app/Dockerfile --tag $DOCKER_REPOSITORY/$IMAGE_NAME:$GITHUB_SHA --build-arg=token=secrets.MYTOKEN --no-cache
+
+name: Build and Release
+
+on:
+  # push:
+  #   tags:        
+  #     - '*'
+  push:
+    branches: [ master ]
+    paths-ignore:
+      - create-release.yml
+      - update-release.yml
+
+env:
+  IMAGE_NAME: eche21/demoapp
+
+jobs:
+  Build-Linux:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Docker Login
+      uses: docker/login-action@v1.14.1
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    - name: Build and push app to Dockerhub
+      uses: docker/build-push-action@v2.10.0
+      with:
+        context: './atlas'
+        file: 'atlas/Dockerfile'
+        push: true
+        tags: ${{ env.IMAGE_NAME }}:${{ env.GITHUB_REF_NAME }}
