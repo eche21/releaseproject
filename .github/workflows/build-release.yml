@@ -56,7 +56,7 @@ on:
       - update-release.yml
 
 env:
-  IMAGE_NAME: eche21/demoapp
+  IMAGE_NAME: eche/demoapp
 
 jobs:
   Build-Linux:
